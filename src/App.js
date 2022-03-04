@@ -9,6 +9,9 @@ import Shop from "./pages/Shop"
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Signup from "./pages/Signup";
+import Product from "./pages/Product";
+import MyOrders from "./pages/MyOrders";
+import Error from "./pages/Error";
 
 function App() {
   const [user, setUser] = useState({
@@ -49,6 +52,9 @@ function App() {
           <Route exact path="/login" component={Login}/>
           <Route exact path="/logout" component={Logout}/>
           <Route exact path="/signup" component={Signup}/>
+          <Route exact path="/product/:id" component={Product}/>
+          <Route exact path="/myorders" component={MyOrders}/>
+          <Route component={Error}/>
         </Switch>
         <Footer/>
       </Router>

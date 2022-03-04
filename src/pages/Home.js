@@ -1,18 +1,17 @@
-import {React} from 'react';
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Fragment } from 'react';
+import Banner from "../components/Banner";
 
 const Home = () => {
+  const data = {
+    title: "Shop Until U Drop",
+    content: "No money? Why not take some credit?",
+    destination: "/shop",
+    label: "SHOP NOW"
+  };
   return (
-    <Row className="text-center">
-        <Col className="p-5">
-            <Container className="bg-light p-5">
-                <h1>SHOP TILL U DROP</h1>
-                <h4>No money? Why not take some credit?</h4>
-                <Button className="mt-3" variant="info" as={Link} to="/shop">SHOP NOW</Button>
-            </Container>
-        </Col>
-    </Row>
+    <Fragment>
+      <Banner prop={data} />
+    </Fragment>
   )
 }
 

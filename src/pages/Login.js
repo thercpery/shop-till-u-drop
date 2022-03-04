@@ -70,57 +70,61 @@ const Login = () => {
   return (
     ((user.id !== null) || (localStorage.getItem("token") !== null))
     ?
-    <Redirect to="/shop" />
+      (user.is_admin)
+      ?
+        <Redirect to="/dashboard" />
+      :
+        <Redirect to="/shop" />
     :
-    <Container>
-      <div className="d-flex justify-content-center mt-5">
-        <Card className="text-center center-block cardForm">
-          <Card.Header className="bg-success">
-            <h3>LOGIN</h3>
-          </Card.Header>
-          <Card.Body>
-            <Form onSubmit={(e) => loginUser(e)}>
-              <Form.Group className="mb-3" controlId='userEmail'>
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="user@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId='password'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="hard to guess string"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
-              {
-                isActive
-                ?
-                  <Button
-                    type="submit"
-                    className="bg-success"
-                  >
-                    LOGIN
-                  </Button>
-                :
-                  <Button
-                    type="submit"
-                    className="bg-danger"
-                    disabled
-                  >
-                    LOGIN
-                  </Button>
-              }
-            </Form>
-          </Card.Body>
-        </Card>
-      </div>
-    </Container>
+      <Container>
+        <div className="d-flex justify-content-center mt-5">
+          <Card className="text-center center-block cardForm">
+            <Card.Header className="bg-success">
+              <h3>LOGIN</h3>
+            </Card.Header>
+            <Card.Body>
+              <Form onSubmit={(e) => loginUser(e)}>
+                <Form.Group className="mb-3" controlId='userEmail'>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="user@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId='password'>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="hard to guess string"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+                {
+                  isActive
+                  ?
+                    <Button
+                      type="submit"
+                      className="bg-success"
+                    >
+                      LOGIN
+                    </Button>
+                  :
+                    <Button
+                      type="submit"
+                      className="bg-danger"
+                      disabled
+                    >
+                      LOGIN
+                    </Button>
+                }
+              </Form>
+            </Card.Body>
+          </Card>
+        </div>
+      </Container>
   )
 }
 

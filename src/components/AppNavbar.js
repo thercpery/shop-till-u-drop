@@ -13,7 +13,28 @@ const AppNavbar = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav'/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/shop">Shop</Nav.Link>
+            {
+              (user.id !== null && user.is_admin)
+              ?
+              <>
+                <Nav.Link as={NavLink} to="/dashboard">Dashboard</Nav.Link>
+                <Nav.Link as={NavLink} to="/orders">Orders</Nav.Link>
+              </>
+              :
+              <>
+                  <Nav.Link as={NavLink} to="/shop">Shop</Nav.Link>
+                  {
+                    (user.id !== null && !user.is_admin)
+                    ?
+                    <>
+                      <Nav.Link as={NavLink} to="/myorders">My Orders</Nav.Link>
+                      <Nav.Link as={NavLink} to="/cart">My Cart</Nav.Link>
+                    </>
+                    :
+                    <></>
+                  }
+              </>
+            }
           </Nav>
           <Nav>
             {
