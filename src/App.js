@@ -11,6 +11,7 @@ import Logout from "./pages/Logout";
 import Signup from "./pages/Signup";
 import Product from "./pages/Product";
 import MyOrders from "./pages/MyOrders";
+import Cart from "./pages/Cart";
 import Error from "./pages/Error";
 
 function App() {
@@ -31,16 +32,14 @@ function App() {
       })
       .then(res => res.json())
       .then(data => {
-        if(data.id !== "undefined"){
-          setUser({
-            id: data.id,
-            email: data.email,
-            is_admin: data.is_admin
-          });
-        }
+        setUser({
+          id: data.id,
+          email: data.email,
+          is_admin: data.is_admin
+        });
       });
     }
-  }, []);
+  }, [user]);
   
   return (
     <UserProvider value={{user, setUser, unsetUser}}>
@@ -54,6 +53,7 @@ function App() {
           <Route exact path="/signup" component={Signup}/>
           <Route exact path="/product/:id" component={Product}/>
           <Route exact path="/myorders" component={MyOrders}/>
+          <Route exact path="/cart" component={Cart}/>
           <Route component={Error}/>
         </Switch>
         <Footer/>

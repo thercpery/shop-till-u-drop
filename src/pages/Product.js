@@ -1,21 +1,21 @@
 import { useState, useEffect, Fragment, useContext } from 'react';
 import { Container, Card, Button, Row, Col, Form } from "react-bootstrap";
-import { useParams, Link, useHistory } from "react-router-dom";
+import { useParams, Link, useHistory, Redirect } from "react-router-dom";
 import UserContext from "../UserContext";
 import Swal from "sweetalert2";
 
 const Product = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  let [quantity, setQuantity] = useState(1);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [isActive, setIsActive] = useState();
-  let [quantity, setQuantity] = useState(1);
   const { id } = useParams();
 
-  const increment = () => setQuantity(quantity++);
+  const increment = () => setQuantity(quantity+1);
   const decrement = () => {
-    if(quantity > 1) setQuantity(quantity--);
+    if(quantity > 1) setQuantity(quantity-1);
     else setQuantity(1);
   };
 
@@ -33,7 +33,6 @@ const Product = () => {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       Swal.fire({
         title: "Item added to cart!",
         icon: "success",
@@ -77,6 +76,8 @@ const Product = () => {
   }, [id]);
 
   return (
+    (!user.is_admin)
+    ?
     <Container className="mt-5">
       <Row>
         <Col>
@@ -101,7 +102,7 @@ const Product = () => {
                       <Form.Control 
                           type="number"
                           value={quantity}
-                          onChange={e => setQuantity(e.target.value)}
+                          onChange={(e) => setQuantity(e.target.value)}
                           disabled
                           />
                   </Col>
@@ -138,6 +139,8 @@ const Product = () => {
         </Col>
       </Row>
     </Container>
+    :
+    <Redirect to="/dashboard" />
   )
 }
 
