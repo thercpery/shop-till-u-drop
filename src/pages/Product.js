@@ -20,7 +20,7 @@ const Product = () => {
   };
 
   const addToCart = () => {
-    fetch(`http://localhost:5000/api/users/addtocart`, {
+    fetch(`${ process.env.REACT_APP_API_URL }/api/users/addtocart`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const Product = () => {
   };
 
   const buyNow = () => {
-    fetch(`http://localhost:5000/api/orders/buynow`, {
+    fetch(`${ process.env.REACT_APP_API_URL }/api/orders/buynow`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const Product = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`${ process.env.REACT_APP_API_URL }/api/products/${id}`)
     .then(res => res.json())
     .then(data => {
       setName(data.name);

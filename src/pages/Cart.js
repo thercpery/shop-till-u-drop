@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { Container, Table, Button, Row, Col, Form  } from "react-bootstrap";
-import { Redirect, Link } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
+import Swal from "sweetalert2"; 
 import UserContext from "../UserContext";
 
 const Cart = () => {
@@ -8,6 +9,7 @@ const Cart = () => {
     const [cartItems, setCartItems] = useState([]);
     const [totalAmount, setTotalAmount] = useState();
     const [isCartEmpty, setIsCartEmpty] = useState();
+    const history = useHistory();
     
     const increment = (id) => {
         console.log(id);
@@ -32,10 +34,40 @@ const Cart = () => {
         .then(data => data);
     };
 
-    const removeCartItem = () => {
-
+    const removeCartItem = (id) => {
+        fetch(`http://localhost:5000/api/users/cart/${id}/remove`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            Swal.fire({
+                title: "Item Removed in Cart!",
+                icon: "success",
+                text: "You have successfully removed an item in the cart."
+            });
+        });
     };
-    const checkoutFromCart = () => {};
+
+    const checkoutFromCart = () => {
+        fetch("http://localhost:5000/api/orders/checkoutcart", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            Swal.fire({
+                title: "Order Successful!",
+                icon: "success",
+                text: "You can now see your order"
+            });
+            history.push("/myorders");
+        });
+    };
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/users/cart`, {
@@ -114,7 +146,7 @@ const Cart = () => {
         :
             <Redirect to="/dashboard" />
     :
-        <Redirect to="/login" />
+    <Redirect to="/login" />
   )
 }
 

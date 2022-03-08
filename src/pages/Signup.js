@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 
 const Signup = () => {
-  const {user, setUser} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
@@ -15,7 +15,7 @@ const Signup = () => {
 
   const registerUser = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/api/users/signup", {
+    fetch(`${ process.env.REACT_APP_API_URL }/api/users/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

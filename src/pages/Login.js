@@ -14,7 +14,7 @@ const Login = () => {
   const loginUser = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:5000/api/users/login", {
+    fetch(`${ process.env.REACT_APP_API_URL }/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -34,7 +34,7 @@ const Login = () => {
           icon: "success",
           text: "You can now shop online."
         });
-        history.push("/shop");
+        history.push("/products");
       }
       else{
         Swal.fire({
@@ -47,7 +47,7 @@ const Login = () => {
   };
 
   const retrieveUserDetails = (token) => {
-    fetch("http://localhost:5000/api/users/details", {
+    fetch(`${ process.env.REACT_APP_API_URL }/api/users/details`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -70,11 +70,7 @@ const Login = () => {
   return (
     ((user.id !== null) || (localStorage.getItem("token") !== null))
     ?
-      (user.is_admin)
-      ?
-        <Redirect to="/dashboard" />
-      :
-        <Redirect to="/shop" />
+      <Redirect to="/products" />
     :
       <Container>
         <div className="d-flex justify-content-center mt-5">

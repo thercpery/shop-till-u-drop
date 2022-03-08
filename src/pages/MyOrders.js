@@ -49,7 +49,6 @@ const MyOrders = () => {
             }
         });
     }, [orders, user]);
-
   return (
     ((user.id !== null) || (localStorage.getItem("token" !== null)))
     ?

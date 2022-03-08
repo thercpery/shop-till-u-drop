@@ -6,12 +6,13 @@ const Logout = () => {
     const { unsetUser, setUser } = useContext(UserContext);
 
     unsetUser();
-
+    
     useEffect(() => {
         setUser({
             id: null
         });
     });
+    
   return (
     <Redirect to="/login" />
   )
