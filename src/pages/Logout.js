@@ -11,10 +11,10 @@ const Logout = () => {
         setUser({
             id: null
         });
-    });
+    }, [setUser]);
     
   return (
-    <Redirect to="/login" />
+    <Redirect to="/" />
   )
 }
 

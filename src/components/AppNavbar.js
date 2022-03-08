@@ -15,7 +15,7 @@ const AppNavbar = () => {
           <Nav className="me-auto">
             <Nav.Link as={NavLink} to="/products">{ (user.is_admin) ? "Dashboard" : "Products" }</Nav.Link>
                   {
-                    (user.id !== null && localStorage.getItem("token") !== null)
+                    (user.id !== null)
                     ?
                     <>
                       <Nav.Link as={NavLink} to="/orders">Orders</Nav.Link>
@@ -34,7 +34,7 @@ const AppNavbar = () => {
           </Nav>
           <Nav>
             {
-              (user.id !== null || localStorage.getItem("token") !== null)
+              (user.id !== null)
               ?
               <NavDropdown title={user.email}>
                 <NavDropdown.Item as={NavLink} to="/change-password">Change Password</NavDropdown.Item>

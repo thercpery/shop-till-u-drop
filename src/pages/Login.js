@@ -68,7 +68,7 @@ const Login = () => {
   }, [email, password]);
 
   return (
-    ((user.id !== null) || (localStorage.getItem("token") !== null))
+    ((localStorage.getItem("token") !== null) || (user.id !== null))
     ?
       <Redirect to="/products" />
     :

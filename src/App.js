@@ -22,33 +22,38 @@ function App() {
     is_admin: null
   });
 
-  const unsetUser = () => localStorage.clear();
+  const unsetUser = () => {
+    localStorage.clear();
+    setUser({
+      id: null,
+      email: null,
+      is_admin: null
+    });
+  };
 
   useEffect(() => {
-    if(localStorage.getItem("token") !== null){
-      fetch(`${ process.env.REACT_APP_API_URL }/api/users/details`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(typeof data.id !== "undefined") {
-          setUser({
-            id: data.id,
-            email: data.email,
-            is_admin: data.is_admin
-          });
-        }
-        else{
-          setUser({
-            id: null,
-            email: null,
-            is_admin: null
-          });
-        }
-      });
-    }
+    fetch(`${ process.env.REACT_APP_API_URL }/api/users/details`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(typeof data.id !== "undefined") {
+        setUser({
+          id: data.id,
+          email: data.email,
+          is_admin: data.is_admin
+        });
+      }
+      else{
+        setUser({
+          id: null,
+          email: null,
+          is_admin: null
+        });
+      }
+    });
   }, [user, localStorage.getItem("token")]);
   
   return (
