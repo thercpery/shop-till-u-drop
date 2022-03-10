@@ -30,7 +30,7 @@ const Products = () => {
   }, [user]);
 
   return (
-    <Container className="mt-5 text-center">
+    <Container className="mt-3 text-center">
       <h1>PRODUCTS</h1>
       {
         (user.is_admin)

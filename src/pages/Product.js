@@ -12,6 +12,7 @@ const Product = () => {
   const [price, setPrice] = useState(0);
   const [isActive, setIsActive] = useState();
   const { id } = useParams();
+  const history = useHistory();
 
   const increment = () => setQuantity(quantity+1);
   const decrement = () => {
@@ -58,8 +59,9 @@ const Product = () => {
       Swal.fire({
         title: "Order successful",
         icon: "success",
-        text: "You can now see your order (Still in progress)."
+        text: "You can now see your order."
       });
+      history.push("/orders");
 
     });
   };

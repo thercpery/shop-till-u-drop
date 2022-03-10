@@ -5,7 +5,7 @@ const Home = () => {
   const data = {
     title: "Shop Until U Drop",
     content: "No money? Why not take some credit?",
-    destination: "/shop",
+    destination: "/products",
     label: "SHOP NOW"
   };
   return (

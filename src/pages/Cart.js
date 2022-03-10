@@ -13,7 +13,7 @@ const Cart = () => {
     
     const increment = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/api/users/cart/${id}/increment`, {
+        fetch(`${ process.env.REACT_APP_API_URL }/api/users/cart/${id}/increment`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -24,7 +24,7 @@ const Cart = () => {
     };
 
     const decrement = (id) => {
-        fetch(`http://localhost:5000/api/users/cart/${id}/decrement`, {
+        fetch(`${ process.env.REACT_APP_API_URL }/api/users/cart/${id}/decrement`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -35,7 +35,7 @@ const Cart = () => {
     };
 
     const removeCartItem = (id) => {
-        fetch(`http://localhost:5000/api/users/cart/${id}/remove`, {
+        fetch(`${ process.env.REACT_APP_API_URL }/api/users/cart/${id}/remove`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -52,7 +52,7 @@ const Cart = () => {
     };
 
     const checkoutFromCart = () => {
-        fetch("http://localhost:5000/api/orders/checkoutcart", {
+        fetch(`${ process.env.REACT_APP_API_URL }/api/orders/checkoutcart`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -65,19 +65,20 @@ const Cart = () => {
                 icon: "success",
                 text: "You can now see your order"
             });
-            history.push("/myorders");
+            history.push("/orders");
         });
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/api/users/cart`, {
+        fetch(`${ process.env.REACT_APP_API_URL }/api/users/cart`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
         .then(res => res.json())
         .then(data => {
-            setIsCartEmpty((data.items.length === 0) ? true : false);
+            console.log(data)
+            setIsCartEmpty((data === false) ? true : false);
             setTotalAmount(data.total_amount);
             setCartItems(data.items.map(item => {
                 return(
@@ -109,7 +110,7 @@ const Cart = () => {
     }, [cartItems]);
 
   return (
-    ((user.id !== null) && (localStorage.getItem("token") !== null))
+    ((user.id !== null) || (localStorage.getItem("token") !== null))
     ?
         (!user.is_admin)
         ?
@@ -126,25 +127,27 @@ const Cart = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {cartItems}
                         {
-                        (isCartEmpty)
-                        ?
-                        <tr>
+                            (isCartEmpty)
+                            ?
+                            <tr>
                             <td colSpan={5}>THERE ARE NO ITEMS IN YOUR CART</td>
                         </tr>
                         :
+                        <>
+                            {cartItems}
                             <tr>
                                 <td colSpan={3}>TOTAL PRICE</td>
                                 <td>&#8369; {totalAmount}</td>
                                  <td><Button variant="success" onClick={checkoutFromCart}>Checkout</Button></td>
                             </tr>
+                        </>
                         }
                     </tbody>
                 </Table>
             </Container>
         :
-            <Redirect to="/dashboard" />
+            <Redirect to="/products" />
     :
     <Redirect to="/login" />
   )

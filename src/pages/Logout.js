@@ -14,7 +14,7 @@ const Logout = () => {
     }, [setUser]);
     
   return (
-    <Redirect to="/" />
+    <Redirect to="/login" />
   )
 }
 

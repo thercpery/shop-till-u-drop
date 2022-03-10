@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AdminView = () => {
+const AdminView = ({ orderData }) => {
   return (
     <div>AdminView</div>
   )
