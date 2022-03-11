@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ProductsCards from "../ProductCards";
 
 const UserView = ({productData}) => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState();
 
     useEffect(() => {
         setProducts(productData.map(product => {
@@ -13,7 +13,7 @@ const UserView = ({productData}) => {
                 />
             )
         }))
-    }, [productData]);
+    }, [productData, products]);
     
   return (
       <>
