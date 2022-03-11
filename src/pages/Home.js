@@ -12,6 +12,8 @@ const Home = () => {
     <Fragment>
       <Banner prop={data} />
     </Fragment>
+    
+    // TODO: Highlights: Top 3 best-selling items. 
   )
 }
 
